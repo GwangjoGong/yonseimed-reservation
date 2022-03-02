@@ -3,6 +3,7 @@ import './reset.css';
 import React from 'react';
 
 import { Firebase } from './firebase';
+import { LoggedInRoutes, LoggedOutRoutes } from './routes';
 
 export const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -17,5 +18,5 @@ export const App: React.FC = () => {
     });
   }, []);
 
-  return <div>Hello, world!</div>;
+  return isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />;
 };
