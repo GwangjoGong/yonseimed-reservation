@@ -17,13 +17,24 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const actionCodeSettings = {
-  url: '',
+  url: 'https://yonsei-med-test.firebaseapp.com/auth',
   handleCodeInApp: true,
 };
 
+const auth = getAuth();
+
+const emailSignIn = async (email: string) => {
+  try {
+    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+    window.localStorage.setItem('emailForSignIn', email);
+  } catch {
+    window.alert('로그인에 실패했습니다. 관리자에게 문의해주세요.');
+  }
+};
+
 export const Firebase = {
-  app,
+  emailSignIn,
 };
