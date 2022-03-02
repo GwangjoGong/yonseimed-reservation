@@ -17,7 +17,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 const actionCodeSettings = {
   url: 'https://yonsei-med-test.firebaseapp.com/auth',
@@ -37,4 +37,5 @@ const emailSignIn = async (email: string) => {
 
 export const Firebase = {
   emailSignIn,
+  auth,
 };
