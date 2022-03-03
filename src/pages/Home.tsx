@@ -14,6 +14,8 @@ export type Item = {
     return_multi?: boolean;
     reserved_by?: string;
     reserved_at?: string;
+    returned_at?: string;
+    place?: string;
   };
 };
 
@@ -77,10 +79,6 @@ export const Home: React.FC = () => {
 
   const onReportLost = async (item: Item) => {
     if (profile?.email) {
-      await Firebase.updateItem(item.id, {
-        status: 'lost',
-      });
-
       await Firebase.makeLostReport(
         item,
         moment().format('YYYY년 MM월 DD일 HH:mm:ss'),
@@ -116,7 +114,6 @@ export const Home: React.FC = () => {
         items.filter(
           (item) =>
             (item.data.status === 'reserved' ||
-              item.data.status === 'lost' ||
               item.data.status === 'returned') &&
             item.data.reserved_by === profile?.email,
         ),
@@ -124,18 +121,37 @@ export const Home: React.FC = () => {
 
       setUmbrellas(
         items
-          .filter((item) => item.id.includes('umbrella'))
+          .filter(
+            (item) =>
+              item.id.includes('umbrella') &&
+              (item.data.status === 'reserved' ||
+                item.data.status === 'not_reserved' ||
+                item.data.status === 'returned'),
+          )
           .sort(
             (a, b) =>
               parseInt(a.id.split('_')[1]) - parseInt(b.id.split('_')[1]),
           ),
       );
 
-      setChargers(items.filter((item) => item.id.includes('charger')));
+      setChargers(
+        items.filter(
+          (item) =>
+            item.id.includes('charger') &&
+            (item.data.status === 'reserved' ||
+              item.data.status === 'not_reserved'),
+        ),
+      );
 
       setApplePencils(
         items
-          .filter((item) => item.id.includes('applepencil'))
+          .filter(
+            (item) =>
+              item.id.includes('applepencil') &&
+              (item.data.status === 'reserved' ||
+                item.data.status === 'not_reserved' ||
+                item.data.status === 'returned'),
+          )
           .sort(
             (a, b) =>
               parseInt(a.id.split('_')[1]) - parseInt(b.id.split('_')[1]),
@@ -144,7 +160,13 @@ export const Home: React.FC = () => {
 
       setGalaxyPencils(
         items
-          .filter((item) => item.id.includes('galaxypencil'))
+          .filter(
+            (item) =>
+              item.id.includes('galaxypencil') &&
+              (item.data.status === 'reserved' ||
+                item.data.status === 'not_reserved' ||
+                item.data.status === 'returned'),
+          )
           .sort(
             (a, b) =>
               parseInt(a.id.split('_')[1]) - parseInt(b.id.split('_')[1]),

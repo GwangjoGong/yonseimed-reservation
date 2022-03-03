@@ -39,7 +39,13 @@ export const ReservableItem: React.FC<ReservableItemProps> = ({
     <Container>
       <Header>
         <Name>{item.data.display_name}</Name>
-        <Status reserved={reserved}>{reserved ? '대여중' : '대여가능'}</Status>
+        <Status reserved={reserved}>
+          {reserved
+            ? item.data.status === 'returned'
+              ? '반납 처리중'
+              : '대여중'
+            : '대여가능'}
+        </Status>
       </Header>
       {!reserved && (
         <Actions>
@@ -72,7 +78,7 @@ const Name = styled.h3`
 
 const Status = styled.div<{ reserved?: boolean }>`
   padding: 4px 8px;
-  color: ${(props) => (props.reserved ? '#e9e9e9' : '#023978')};
+  color: ${(props) => (props.reserved ? '#a9a9a9' : '#023978')};
 
   margin-left: 10px;
   font-size: 10px;

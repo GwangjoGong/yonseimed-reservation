@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   sendSignInLinkToEmail,
+  signInWithEmailAndPassword,
   signInWithEmailLink,
 } from 'firebase/auth';
 import {
@@ -44,6 +45,10 @@ const emailSignIn = async (email: string) => {
   } catch {
     window.alert('로그인에 실패했습니다. 관리자에게 문의해주세요.');
   }
+};
+
+const adminSignIn = async (email: string, password: string) => {
+  await signInWithEmailAndPassword(auth, email, password);
 };
 
 const checkSignIn = async () => {
@@ -98,6 +103,15 @@ const updateItem = async (id: string, data: any) => {
   await updateDoc(docRef, data);
 };
 
+const getMalfunctionReports = async () => {
+  const snapshot = await getDocs(collection(db, 'report_malfunction'));
+
+  return snapshot.docs.map((docs) => ({
+    id: docs.id,
+    data: docs.data(),
+  }));
+};
+
 const makeMalfunctionReport = async (
   item: Item,
   reported_at: string,
@@ -105,27 +119,55 @@ const makeMalfunctionReport = async (
 ) => {
   await addDoc(collection(db, 'report_malfunction'), {
     item,
+    status: 'unresolved',
     reported_at,
     reported_by,
   });
 };
 
+const updateMalfunctionReport = async (id: string, data: any) => {
+  const docRef = doc(db, 'report_malfunction', id);
+
+  await updateDoc(docRef, data);
+};
+
+const getLostReports = async () => {
+  const snapshot = await getDocs(collection(db, 'report_lost'));
+
+  return snapshot.docs.map((docs) => ({
+    id: docs.id,
+    data: docs.data(),
+  }));
+};
+
 const makeLostReport = async (item: Item, lost_at: string, lost_by: string) => {
   await addDoc(collection(db, 'report_lost'), {
     item,
+    status: 'unresolved',
     lost_at,
     lost_by,
   });
 };
 
+const updateLostReport = async (id: string, data: any) => {
+  const docRef = doc(db, 'report_lost', id);
+
+  await updateDoc(docRef, data);
+};
+
 export const Firebase = {
   emailSignIn,
+  adminSignIn,
   checkSignIn,
   auth,
   logout,
   getItems,
   getItem,
   updateItem,
+  getMalfunctionReports,
   makeMalfunctionReport,
+  updateMalfunctionReport,
+  getLostReports,
   makeLostReport,
+  updateLostReport,
 };

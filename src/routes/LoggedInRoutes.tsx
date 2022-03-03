@@ -5,9 +5,14 @@ import styled from 'styled-components';
 import logo from '../assets/yonseimed_logo.png';
 import { Firebase } from '../firebase';
 import { useMe } from '../hooks';
+import { Admin } from '../pages';
 import { Home } from '../pages/Home';
 
-export const LoggedInRoutes: React.FC = () => {
+type LoggedInRoutesProps = {
+  admin: boolean;
+};
+
+export const LoggedInRoutes: React.FC<LoggedInRoutesProps> = ({ admin }) => {
   const { me } = useMe();
   const profile = me();
 
@@ -22,12 +27,20 @@ export const LoggedInRoutes: React.FC = () => {
         <Title>대여서비스</Title>
       </Header>
       <Profile>
-        {profile?.email}님 안녕하세요!
+        {admin ? '관리자' : profile?.email}님 안녕하세요!
         <Logout onClick={logout}>로그아웃</Logout>
       </Profile>
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="*" element={<Navigate to="/home" />} />
+        {admin ? (
+          <Route path="/admin" element={<Admin />} />
+        ) : (
+          <Route path="/home" element={<Home />} />
+        )}
+        {admin ? (
+          <Route path="*" element={<Navigate to={'/admin'} />} />
+        ) : (
+          <Route path="*" element={<Navigate to={'/home'} />} />
+        )}
       </Routes>
     </>
   );

@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
 import logo from '../assets/yonseimed_logo.png';
-import { Auth, EmailSent, Login } from '../pages';
+import { AdminLogin, Auth, EmailSent, Login } from '../pages';
 
 export const LoggedOutRoutes: React.FC = () => {
   return (
@@ -16,6 +16,7 @@ export const LoggedOutRoutes: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/sent" element={<EmailSent />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/admin" element={<AdminLogin />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </>
