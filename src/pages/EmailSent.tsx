@@ -19,6 +19,10 @@ export const EmailSent: React.FC = () => {
 
 const Container = styled.div`
   padding: 20px;
+  @media only screen and (min-width: 400px) {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 `;
 
 const Heading = styled.h1`

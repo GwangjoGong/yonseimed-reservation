@@ -7,21 +7,31 @@ import { AdminLogin, Auth, EmailSent, Login } from '../pages';
 
 export const LoggedOutRoutes: React.FC = () => {
   return (
-    <>
-      <Header>
-        <Logo src={logo} alt="logo" />
-        <Title>대여서비스</Title>
-      </Header>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/sent" element={<EmailSent />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
-    </>
+    <Container>
+      <Content>
+        <Header>
+          <Logo src={logo} alt="logo" />
+          <Title>대여서비스</Title>
+        </Header>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/sent" element={<EmailSent />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </Content>
+    </Container>
   );
 };
+const Container = styled.div``;
+
+const Content = styled.div`
+  @media only screen and (min-width: 1500px) {
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+`;
 
 const Header = styled.div`
   height: 80px;

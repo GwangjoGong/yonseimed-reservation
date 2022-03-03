@@ -46,6 +46,13 @@ export const MalfunctionReport: React.FC<MalfunctionReportProps> = ({
 const Container = styled.div`
   padding: 10px 0;
   border-bottom: 1px solid #e9e9e9;
+
+  @media only screen and (min-width: 1500px) {
+    border: 1px solid #e9e9e9;
+    border-radius: 5px;
+    padding: 10px;
+    height: fit-content;
+  }
 `;
 
 const Name = styled.h3`

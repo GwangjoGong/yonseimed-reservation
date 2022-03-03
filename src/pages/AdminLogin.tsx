@@ -31,6 +31,11 @@ export const AdminLogin: React.FC = () => {
           required
           type="email"
           placeholder="아이디"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              onSubmit();
+            }
+          }}
         />
 
         <Input
@@ -39,6 +44,11 @@ export const AdminLogin: React.FC = () => {
           required
           type="password"
           placeholder="비밀번호"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              onSubmit();
+            }
+          }}
         />
         <Submit onClick={onSubmit} disabled={loading}>
           {loading ? '로그인 중...' : '로그인'}
@@ -50,6 +60,10 @@ export const AdminLogin: React.FC = () => {
 
 const Container = styled.div`
   width: 100%;
+  @media only screen and (min-width: 400px) {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 `;
 
 const Content = styled.div`

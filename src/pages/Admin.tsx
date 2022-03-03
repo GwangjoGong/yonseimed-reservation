@@ -235,4 +235,9 @@ const GroupHeader = styled.h2`
 const Group = styled.div`
   display: flex;
   flex-direction: column;
+  @media only screen and (min-width: 1500px) {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;

@@ -41,6 +41,11 @@ export const Login: React.FC = () => {
           required
           type="email"
           placeholder="honggildong@email.com"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              onSubmit();
+            }
+          }}
         />
         <Submit onClick={onSubmit} disabled={loading}>
           {loading ? '이메일 전송중...' : '로그인'}
@@ -52,6 +57,11 @@ export const Login: React.FC = () => {
 
 const Container = styled.div`
   width: 100%;
+
+  @media only screen and (min-width: 400px) {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 `;
 
 const Content = styled.div`
