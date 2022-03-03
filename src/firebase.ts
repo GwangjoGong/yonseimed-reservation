@@ -32,7 +32,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 const actionCodeSettings = {
-  url: 'http://localhost:3000/auth',
+  url: 'https://yonseimed-reservation.web.app/auth',
   handleCodeInApp: true,
 };
 
